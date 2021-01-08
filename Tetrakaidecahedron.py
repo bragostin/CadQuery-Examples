@@ -21,8 +21,8 @@ cq.Workplane.pmcross = pmcross
 
 L = 20
 W = 20
-H = 10
-NL = 3 # number of x layers
+H = 20
+D = 12 # Cell diameter
 WT = 1
 FRO = 3
 FRI = 2
@@ -33,7 +33,7 @@ BS = acos(1/sqrt(3)) * 180/pi
 BH = acos(1/3) * 180/pi
 
 tc = 1.
-dc = (H -2*WT +2*tc) / (2 * cos((90-BS)*pi/180))
+dc = (D -2*WT +2*tc) / (2 * cos((90-BS)*pi/180))
 
 dcc = dc * tan(A*pi/180)
 
@@ -74,7 +74,7 @@ cell = cell_s.union(cell).rotateAboutCenter((0,1,0),90-BS)
 # PATTERN
 dx = dc * sin((90-BS)*pi/180)  + dcc/2 - tc/2
 dy = dz = dc * cos((90-BS)*pi/180) + dcc/2 + tc/2
-x_af0 = np.arange(0, NL*H, dx)[:-2]
+x_af0 = np.arange(0, H, dx)[:-2]
 y_af0 = np.arange(0, W, dy)[1:]
 z_af0 = np.arange(0, L,  dz)#[:-1]
 
@@ -95,5 +95,6 @@ cellS = cellS.translate((0, -W/2-dc/2+FRI, -L/2-dz/2))
 show_object(cellS)
 
 #cq.exporters.export(cellS.val(), 'EV_Tetrakaidecahedron.step')
+
 
 
